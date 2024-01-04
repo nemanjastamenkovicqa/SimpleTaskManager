@@ -65,7 +65,14 @@ class TaskManager {
     }
 
     public void viewTasks() {
-        // Implement logic to display all tasks
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+        } else {
+            System.out.println("All Tasks:");
+            for (Task task : tasks) {
+                displayTaskDetails(task);
+            }
+        }
     }
 
     public void updateTaskStatus(int taskId) {
@@ -98,7 +105,7 @@ public class Main {
                     // Get task details from the user and add a new task
                     break;
                 case 2:
-                    // View all tasks
+                    taskManager.viewTasks();
                     break;
                 case 3:
                     // Update task status
