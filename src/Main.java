@@ -75,8 +75,26 @@ class TaskManager {
         }
     }
 
-    public void updateTaskStatus(int taskId) {
-        // Implement logic to update task status
+    public void updateTaskStatus(int taskId, boolean completed) {
+        Task taskToUpdate = findTaskById(taskId);
+
+        if (taskToUpdate != null) {
+            taskToUpdate.setCompleted(completed);
+            System.out.println("Task status updated successfully:");
+            displayTaskDetails(taskToUpdate);
+        } else {
+            System.out.println("Task not found with ID: " + taskId);
+        }
+    }
+
+    // Add this helper method to your TaskManager class
+    private Task findTaskById(int taskId) {
+        for (Task task : tasks) {
+            if (task.getTaskId() == taskId) {
+                return task;
+            }
+        }
+        return null;
     }
 
     public void deleteTask(int taskId) {
@@ -108,7 +126,7 @@ public class Main {
                     taskManager.viewTasks();
                     break;
                 case 3:
-                    // Update task status
+                    taskManager.updateTaskStatus(scanner.nextInt(), scanner.nextBoolean());
                     break;
                 case 4:
                     // Delete a task
