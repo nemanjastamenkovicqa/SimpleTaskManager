@@ -53,6 +53,16 @@ class TaskManager {
         System.out.println("Completed: " + task.isCompleted());
         System.out.println();
     }
+    public void getTaskDetailsAndAddTask(Scanner scanner) {
+        System.out.print("Enter Task Name: ");
+        String taskName = scanner.nextLine();
+
+        System.out.print("Enter Due Date: ");
+        String dueDate = scanner.nextLine();
+
+        Task newTask = new Task(taskName, dueDate);
+        addTask(newTask);
+    }
     public void addTask(Task task) {
         // Assign a unique ID to the task
         task.setTaskId(nextTaskId++);
@@ -120,7 +130,7 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    // Get task details from the user and add a new task
+                    taskManager.getTaskDetailsAndAddTask(scanner);
                     break;
                 case 2:
                     taskManager.viewTasks();
