@@ -108,7 +108,14 @@ class TaskManager {
     }
 
     public void deleteTask(int taskId) {
-        // Implement logic to delete a task
+        Task taskToDelete = findTaskById(taskId);
+
+        if (taskToDelete != null) {
+            tasks.remove(taskToDelete);
+            System.out.println("Task deleted successfully.");
+        } else {
+            System.out.println("Task not found with ID: " + taskId);
+        }
     }
 }
 
@@ -139,7 +146,9 @@ public class Main {
                     taskManager.updateTaskStatus(scanner.nextInt(), scanner.nextBoolean());
                     break;
                 case 4:
-                    // Delete a task
+                    System.out.print("Enter Task ID to delete: ");
+                    int taskIdToDelete = scanner.nextInt();
+                    taskManager.deleteTask(taskIdToDelete);
                     break;
                 case 5:
                     System.out.println("Exiting program. Goodbye!");
