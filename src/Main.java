@@ -57,6 +57,9 @@ class TaskManager {
         System.out.println("Completed: " + task.isCompleted());
         System.out.println();
     }
+    public void sortTasksByDueDate() {
+        TaskSorter.sortTasksByDueDate(tasks);
+    }
     public void getTaskDetailsAndAddTask(Scanner scanner) {
         System.out.print("Enter Task Name: ");
         String taskName = scanner.nextLine();
@@ -173,6 +176,9 @@ public class Main {
                     taskManager.deleteTask(taskIdToDelete);
                     break;
                 case 5:
+                    taskManager.sortTasksByDueDate(); // Use the sorting method from TaskManager
+                    break;
+                case 6:
                     TaskFileHandler.saveTasks(taskManager.getTasks());
                     System.out.println("Exiting program. Goodbye!");
                     System.exit(0);
