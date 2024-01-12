@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+
 class Task {
     private String name;
     private String dueDate;
@@ -42,9 +43,12 @@ class Task {
     }
 }
 
+
+
 class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private static int nextTaskId = 1;
+    private int nextTaskId = 1;
+
 
     private void displayTaskDetails(Task task) {
         System.out.println("Task ID: " + task.getTaskId());
@@ -63,6 +67,20 @@ class TaskManager {
         Task newTask = new Task(taskName, dueDate);
         addTask(newTask);
     }
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+    public void updateNextTaskId() {
+        if (!tasks.isEmpty()) {
+            int maxId = tasks.stream().mapToInt(Task::getTaskId).max().orElse(0);
+            nextTaskId = maxId + 1;
+        }
+    }
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+        updateNextTaskId(); // Call this method to ensure the nextTaskId is updated based on loaded tasks
+    }
+
     public void addTask(Task task) {
         // Assign a unique ID to the task
         task.setTaskId(nextTaskId++);
@@ -124,6 +142,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
 
+        // Load tasks from the file when the program starts
+        taskManager.setTasks(TaskFileHandler.loadTasks());
+        taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
+
         while (true) {
             System.out.println("1. Add Task");
             System.out.println("2. View Tasks");
@@ -151,6 +173,7 @@ public class Main {
                     taskManager.deleteTask(taskIdToDelete);
                     break;
                 case 5:
+                    TaskFileHandler.saveTasks(taskManager.getTasks());
                     System.out.println("Exiting program. Goodbye!");
                     System.exit(0);
                 default:
