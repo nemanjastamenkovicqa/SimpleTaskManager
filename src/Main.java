@@ -8,14 +8,17 @@ class Task {
     private boolean completed;
     private int taskId;
     private String taskName;
+    private PriorityLevel priorityLevel;
 
 
     // Constructor
-    public Task(String taskName, String dueDate) {
+    public Task(String taskName, String dueDate, PriorityLevel priorityLevel) {
         this.taskName = taskName;
         this.dueDate = dueDate;
         this.completed = false;
+        this.priorityLevel = this.priorityLevel;
     }
+
     // Getters and setters
     public int getTaskId() {
         return taskId;
@@ -40,6 +43,14 @@ class Task {
     }
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public PriorityLevel getPriorityLevel() {
+        return priorityLevel;
+    }
+
+    public void setPriorityLevel(PriorityLevel priorityLevel) {
+        this.priorityLevel = priorityLevel;
     }
 }
 
@@ -67,7 +78,7 @@ class TaskManager {
         System.out.print("Enter Due Date: ");
         String dueDate = scanner.nextLine();
 
-        Task newTask = new Task(taskName, dueDate);
+        Task newTask = new Task(taskName, dueDate, priorityLevel);
         addTask(newTask);
     }
     public ArrayList<Task> getTasks() {
@@ -93,6 +104,10 @@ class TaskManager {
 
         System.out.println("Task added successfully:");
         displayTaskDetails(task);
+    }
+    public void addTask(String taskName, String dueDate, PriorityLevel priorityLevel) {
+        Task newTask = new Task(taskName, dueDate, priorityLevel);
+        addTask(newTask);
     }
 
     public void viewTasks() {
@@ -148,6 +163,30 @@ public class Main {
         // Load tasks from the file when the program starts
         taskManager.setTasks(TaskFileHandler.loadTasks());
         taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
+
+        int priorityValue;
+        do {
+            System.out.print("Enter Priority Level (1 - High, 2 - Medium, 3 - Low): ");
+            priorityValue = scanner.nextInt();
+        } while (priorityValue < 1 || priorityValue > 3);
+
+        PriorityLevel priorityLevel;
+        switch (priorityValue) {
+            case 1:
+                priorityLevel = new PriorityLevel("High", 1);
+                break;
+            case 2:
+                priorityLevel = new PriorityLevel("Medium", 2);
+                break;
+            case 3:
+                priorityLevel = new PriorityLevel("Low", 3);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid priority value");
+        }
+
+        taskManager.addTask("Sample Task", "2024-12-31", priorityLevel);
+
 
         while (true) {
             System.out.println("1. Add Task");
