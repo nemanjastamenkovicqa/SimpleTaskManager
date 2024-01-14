@@ -59,6 +59,7 @@ class Task {
 class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int nextTaskId = 1;
+    private PriorityLevel priorityLevel;
 
 
     private void displayTaskDetails(Task task) {
@@ -163,6 +164,10 @@ public class Main {
         // Load tasks from the file when the program starts
         taskManager.setTasks(TaskFileHandler.loadTasks());
         taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
+
+        // Create an instance of FileTypeSummaryHandler
+        FileTypeSummaryHandler fileTypeSummaryHandler = new FileTypeSummaryHandler();
+
 
         int priorityValue;
         do {
