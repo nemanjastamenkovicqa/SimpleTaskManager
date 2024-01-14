@@ -9,7 +9,14 @@ class Task {
     private int taskId;
     private String taskName;
     private PriorityLevel priorityLevel;
-
+    //TaskPriorityManager
+    private boolean isImportant;
+    public void setImportant(boolean important) {
+        isImportant = important;
+    }
+    public boolean getIsImportant() {
+        return isImportant;
+    }
 
     // Constructor
     public Task(String taskName, String dueDate, PriorityLevel priorityLevel) {
@@ -161,13 +168,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
 
+        // Create TaskPriorityManager instance
+        TaskPriorityManager priorityManager = new TaskPriorityManager();
         // Load tasks from the file when the program starts
         taskManager.setTasks(TaskFileHandler.loadTasks());
         taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
-
-        // Create an instance of FileTypeSummaryHandler
-        FileTypeSummaryHandler fileTypeSummaryHandler = new FileTypeSummaryHandler();
-
 
         int priorityValue;
         do {
@@ -175,7 +180,7 @@ public class Main {
             priorityValue = scanner.nextInt();
         } while (priorityValue < 1 || priorityValue > 3);
 
-        PriorityLevel priorityLevel;
+        PriorityLevel priorityLevel = null;
         switch (priorityValue) {
             case 1:
                 priorityLevel = new PriorityLevel("High", 1);
@@ -185,6 +190,22 @@ public class Main {
                 break;
             case 3:
                 priorityLevel = new PriorityLevel("Low", 3);
+                break;
+            case 4:
+                // New case to set task priority
+                System.out.print("Enter Task ID to set priority: ");
+                int taskIdToSetPriority = scanner.nextInt();
+                System.out.print("Set priority (true/false): ");
+                boolean newPriorityValue = scanner.nextBoolean();
+                priorityManager.setTaskPriority(taskIdToSetPriority, newPriorityValue);
+                break;
+
+            case 5:
+                // New case to check if a task is important
+                System.out.print("Enter Task ID to check priority: ");
+                int taskIdToCheckPriority = scanner.nextInt();
+                boolean isImportant = priorityManager.isTaskImportant(taskIdToCheckPriority);
+                System.out.println("Task is important: " + isImportant);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid priority value");
