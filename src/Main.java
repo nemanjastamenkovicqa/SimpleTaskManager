@@ -14,7 +14,7 @@ class Task {
     public void setImportant(boolean important) {
         isImportant = important;
     }
-    public boolean getIsImportant() {
+    public boolean isImportant() {
         return isImportant;
     }
 
@@ -68,6 +68,13 @@ class TaskManager {
     private int nextTaskId = 1;
     private PriorityLevel priorityLevel;
 
+    public void viewImportantTasks() {
+        for (Task task : tasks) {
+            if (task.isImportant()) {
+                displayTaskDetails(task);
+            }
+        }
+    }
 
     private void displayTaskDetails(Task task) {
         System.out.println("Task ID: " + task.getTaskId());
@@ -115,6 +122,7 @@ class TaskManager {
     }
     public void addTask(String taskName, String dueDate, PriorityLevel priorityLevel) {
         Task newTask = new Task(taskName, dueDate, priorityLevel);
+        newTask.setImportant(isImportant);
         addTask(newTask);
     }
 
@@ -174,6 +182,8 @@ public class Main {
         taskManager.setTasks(TaskFileHandler.loadTasks());
         taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
 
+
+
         int priorityValue;
         do {
             System.out.print("Enter Priority Level (1 - High, 2 - Medium, 3 - Low): ");
@@ -204,6 +214,9 @@ public class Main {
             System.out.println("3. Update Task Status");
             System.out.println("4. Delete Task");
             System.out.println("5. Exit");
+            //set task priority
+            //check if a task is important
+            //view important tasks
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -211,7 +224,16 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    taskManager.getTaskDetailsAndAddTask(scanner);
+                    System.out.print("Enter Task Name: ");
+                    String taskName = scanner.nextLine();
+
+                    System.out.print("Enter Due Date: ");
+                    String dueDate = scanner.nextLine();
+
+                    System.out.print("Is this task important? (true/false): ");
+                    boolean isImportant = scanner.nextBoolean();
+
+                    taskManager.addTask(taskName, dueDate, priorityLevel);
                     break;
                 case 2:
                     taskManager.viewTasks();
@@ -244,8 +266,11 @@ public class Main {
                     // New case to check if a task is important
                     System.out.print("Enter Task ID to check priority: ");
                     int taskIdToCheckPriority = scanner.nextInt();
-                    boolean isImportant = priorityManager.isTaskImportant(taskIdToCheckPriority);
-                    System.out.println("Task is important: " + isImportant);
+                    boolean isTaskImportant = priorityManager.isTaskImportant(taskIdToCheckPriority);
+                    System.out.println("Task is important: " + isTaskImportant);
+                    break;
+                case 9:
+                    taskManager.viewImportantTasks();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
