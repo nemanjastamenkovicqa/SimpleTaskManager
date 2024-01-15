@@ -67,6 +67,7 @@ class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int nextTaskId = 1;
     private PriorityLevel priorityLevel;
+    private boolean isImportant;
 
     public void viewImportantTasks() {
         for (Task task : tasks) {
