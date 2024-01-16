@@ -23,7 +23,7 @@ class Task {
         this.taskName = taskName;
         this.dueDate = dueDate;
         this.completed = false;
-        this.priorityLevel = this.priorityLevel;
+        this.priorityLevel = priorityLevel;
     }
 
     // Getters and setters
@@ -34,7 +34,7 @@ class Task {
         this.taskId = taskId;
     }
     public String getTaskName() {
-        return name;
+        return taskName;
     }
     public void setTaskName(String name) {
         this.name = name;
@@ -67,7 +67,6 @@ class TaskManager {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int nextTaskId = 1;
     private PriorityLevel priorityLevel;
-    private boolean isImportant;
 
     public void viewImportantTasks() {
         for (Task task : tasks) {
@@ -121,7 +120,7 @@ class TaskManager {
         System.out.println("Task added successfully:");
         displayTaskDetails(task);
     }
-    public void addTask(String taskName, String dueDate, PriorityLevel priorityLevel) {
+    public void addTask(String taskName, String dueDate, PriorityLevel priorityLevel, boolean isImportant) {
         Task newTask = new Task(taskName, dueDate, priorityLevel);
         newTask.setImportant(isImportant);
         addTask(newTask);
@@ -177,8 +176,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
 
-        // Create TaskPriorityManager instance
-        TaskPriorityManager priorityManager = new TaskPriorityManager();
+
         // Load tasks from the file when the program starts
         taskManager.setTasks(TaskFileHandler.loadTasks());
         taskManager.updateNextTaskId(); // Update nextTaskId based on loaded tasks
@@ -205,9 +203,6 @@ public class Main {
             default:
                 throw new IllegalArgumentException("Invalid priority value");
         }
-
-        taskManager.addTask("Sample Task", "2024-12-31", priorityLevel);
-
 
         while (true) {
             System.out.println("1. Add Task");
