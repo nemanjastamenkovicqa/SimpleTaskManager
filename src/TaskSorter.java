@@ -13,6 +13,15 @@ public class TaskSorter {
         }
     }
 
+    public static void sortTasksByPriority(ArrayList<Task> tasks) {
+        if (!tasks.isEmpty()) {
+            Collections.sort(tasks, Comparator.comparing(Task::getPriority));
+            System.out.println("Tasks sorted by priority.");
+        } else {
+            System.out.println("No tasks available to sort.");
+        }
+    }
+
     // You can add additional sorting methods based on different criteria if needed
 
 }

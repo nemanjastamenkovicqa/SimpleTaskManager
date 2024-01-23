@@ -9,6 +9,7 @@ class Task {
     private String taskName;
     private PriorityLevel priorityLevel;
     private boolean isImportant;
+    private int priority;
 
     public void setImportant(boolean important) {
         isImportant = important;
@@ -25,6 +26,7 @@ class Task {
         this.completed = false;
         this.priorityLevel = priorityLevel;
     }
+
 
     // Getters and setters
     public int getTaskId() {
@@ -65,6 +67,10 @@ class Task {
 
     public void setPriorityLevel(PriorityLevel priorityLevel) {
         this.priorityLevel = priorityLevel;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }
 
