@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class TaskFileHandler {
     private static final String FILE_NAME = "tasks.txt";
+    private static final String CSV_FILE_NAME = "tasks.csv";
 
     public static void saveTasks(ArrayList<Task> tasks) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
@@ -27,5 +28,26 @@ public class TaskFileHandler {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    public static void exportTasksToCSV(ArrayList<Task> tasks) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_NAME))) {
+            // Write header
+            writer.println("Task ID,Task Name,Due Date,Completed,Priority Level,Important");
+
+            // Write tasks
+            for (Task task : tasks) {
+                writer.println(task.getTaskId() + "," +
+                        task.getTaskName() + "," +
+                        task.getDueDate() + "," +
+                        task.isCompleted() + "," +
+                        task.getPriorityLevel().getName() + "," +
+                        task.isImportant());
+            }
+
+            System.out.println("Tasks exported to CSV successfully: " + CSV_FILE_NAME);
+        } catch (IOException e) {
+            System.out.println("Error exporting tasks to CSV: " + e.getMessage());
+        }
     }
 }
