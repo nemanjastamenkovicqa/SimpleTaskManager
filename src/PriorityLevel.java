@@ -14,4 +14,8 @@ public class PriorityLevel {
     public int getValue() {
         return value;
     }
+
+    public String getPriorityName() {
+        return name;
+    }
 }
