@@ -163,7 +163,7 @@ class TaskManager {
         }
     }
 
-    private Task findTaskById(int taskId) {
+    Task findTaskById(int taskId) {
         for (Task task : tasks) {
             if (task.getTaskId() == taskId) {
                 return task;
