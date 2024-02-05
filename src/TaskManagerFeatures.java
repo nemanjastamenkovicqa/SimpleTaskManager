@@ -12,6 +12,8 @@ class TaskManagerFeatures {
         });
         System.out.println("Tasks sorted by priority.");
     }
+
+    // Method to mark a task as important
     public static void markTaskAsImportant(TaskManager taskManager, int taskId) {
         Task taskToMark = taskManager.findTaskById(taskId);
 
@@ -23,6 +25,7 @@ class TaskManagerFeatures {
             System.out.println("Task not found with ID: " + taskId);
         }
     }
+
     // Method to display detailed information about a task
     public static void displayTaskDetails(Task task) {
         System.out.println("Task ID: " + task.getTaskId());
