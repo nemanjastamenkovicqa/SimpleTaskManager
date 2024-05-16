@@ -23,7 +23,7 @@ public class TaskFileHandler {
                 System.out.println("Tasks loaded successfully.");
             }
         } catch (FileNotFoundException e) {
-            // File does not exist, it's okay, just return an empty list
+            //  If i doesn't exist it returns empty list
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
