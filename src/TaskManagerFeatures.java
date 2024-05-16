@@ -2,7 +2,6 @@ import java.util.Collections;
 
 class TaskManagerFeatures {
 
-    // Method to sort tasks by priority
     public static void sortTasksByPriority(TaskManager taskManager) {
         Collections.sort(taskManager.getTasks(), (task1, task2) -> {
             boolean priority1 = task1.isImportant();
@@ -13,7 +12,6 @@ class TaskManagerFeatures {
         System.out.println("Tasks sorted by priority.");
     }
 
-    // Method to mark a task as important
     public static void markTaskAsImportant(TaskManager taskManager, int taskId) {
         Task taskToMark = taskManager.findTaskById(taskId);
 
@@ -26,7 +24,6 @@ class TaskManagerFeatures {
         }
     }
 
-    // Method to display detailed information about a task
     public static void displayTaskDetails(Task task) {
         System.out.println("Task ID: " + task.getTaskId());
         System.out.println("Task Name: " + task.getTaskName());
